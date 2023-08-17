@@ -1,0 +1,47 @@
+<!--
+ * @Descripttion: 
+ * @Author: 
+ * @Date: 2023-08-17 18:51:07
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2023-08-17 21:55:00
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input class="ipt-file" type="file"/>
+  <button class="btn-upload">上传</button>
+</body>
+<script>
+  let fileElm = document.getElementsByClassName("ipt-file")[0];
+  let uploadElm = document.getElementsByClassName("btn-upload")[0];
+  console.log('uploadElm: ', uploadElm);
+  
+  uploadElm.addEventListener("click", () =>{
+    const files = fileElm.files;
+    
+    let formData = new FormData();
+    
+    for (let file of files) {
+      formData.append('files[]', file);
+    }
+    console.log(formData);
+    
+    fetch('/upload', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.text())
+    .then(result => {
+      console.log(result);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  })
+</script>
+</html>
