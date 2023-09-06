@@ -3,7 +3,7 @@
  * @Author: 
  * @Date: 2023-09-03 00:05:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-09-06 16:53:50
+ * @LastEditTime: 2023-09-07 01:37:28
 -->
 <template>
   <header>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { reactive, ref, computed, onMounted } from "vue"
+import { reactive, ref, computed, onMounted, onErrorCaptured } from "vue"
 import { useMouse } from './common/plug.js'
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
@@ -59,8 +59,13 @@ function fun () {
 
 // 生命周期
 onMounted(() => {
-  console.log("onMounted", count);
-  console.log("onMounted", child.value.list);
+  console.log("onMounted", "App");
+})
+
+onErrorCaptured((err, instance, info) => {
+  console.log('err: ', err);
+  console.log('instance: ', instance);
+  console.log('info: ', info);
 })
 </script>
 
