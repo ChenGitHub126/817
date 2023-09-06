@@ -3,7 +3,7 @@
  * @Author: 
  * @Date: 2023-09-03 00:05:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-09-04 12:35:38
+ * @LastEditTime: 2023-09-06 16:53:50
 -->
 <template>
   <header>
@@ -14,17 +14,22 @@
     <p>{{ x }}, {{ y }}</p>
   </header>
   <main>
-    <TheWelcome />
+    <TheWelcome ref="child"/>
   </main>
+  <footer>
+    <child/>
+  </footer>
 </template>
 
 <script setup>
 import { reactive, ref, computed, onMounted } from "vue"
-import { useMouse, useEventListener } from './common/plug.js'
+import { useMouse } from './common/plug.js'
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+import Child from './components/child.vue'
 
 // data 属性
+const child = ref(null)
 const msg = ref(0)
 const count = reactive([
   {
@@ -33,7 +38,6 @@ const count = reactive([
 ])
 const obj = {key: ref(0), id: ref(1)}
 const { key, id } = obj
-console.log(useEventListener);
 const { x, y } = useMouse()
 
 // 计算属性 computed
@@ -47,12 +51,16 @@ function fun () {
   key.value++;
   id.value++
   count.splice(0)
-  console.log(count);
+  child.value.list.push({
+    show: true,
+    text: "C"
+  })
 }
 
 // 生命周期
 onMounted(() => {
   console.log("onMounted", count);
+  console.log("onMounted", child.value.list);
 })
 </script>
 

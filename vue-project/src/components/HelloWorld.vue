@@ -1,5 +1,5 @@
 <template>
-  <div class="greetings">
+  <div class="greetings" :class="{ 'isActive': isActive }">
     <h1 class="green">{{ msg }}</h1>
     <h3>
       You’ve successfully created a project with
@@ -10,14 +10,29 @@
 </template>
 
 <script setup>
-defineProps({
+import { ref, computed, onBeforeUpdate } from 'vue';
+
+const isError = ref(false)
+
+const isActive = computed(() => {
+  return isError.value ? false : true
+})
+
+const props = defineProps({
   msg: {
     type: Number,
     required: true
   }
 })
+
+onBeforeUpdate(() => {
+  console.log("BeforeUpdate");
+  isError.value = !isError.value
+})
 </script>
 
 <style scoped>
-
+.isActive {
+  color: red;
+}
 </style>
