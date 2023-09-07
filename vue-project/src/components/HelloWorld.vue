@@ -1,3 +1,10 @@
+<!--
+ * @Description: 
+ * @Author: 
+ * @Date: 2023-09-03 00:05:55
+ * @LastEditors: 
+ * @LastEditTime: 2023-09-07 15:32:43
+-->
 <template>
   <div class="greetings" :class="{ 'isActive': isActive }">
     <h1 class="green">{{ msg }}</h1>
@@ -21,7 +28,7 @@ const isActive = computed(() => {
 const props = defineProps({
   msg: {
     type: Number,
-    required: true
+    // required: true
   }
 })
 

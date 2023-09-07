@@ -3,7 +3,7 @@
  * @Author: 
  * @Date: 2023-09-03 00:05:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-09-07 01:37:28
+ * @LastEditTime: 2023-09-07 15:51:28
 -->
 <template>
   <header>
@@ -13,11 +13,13 @@
     <button @click="fun">click</button>
     <p>{{ x }}, {{ y }}</p>
   </header>
-  <main>
+  <!-- <main>
     <TheWelcome ref="child"/>
-  </main>
-  <footer>
-    <child/>
+  </main> -->
+  <footer :style="{ fontSize: fontSize + 'em' }">
+    <child @handleFontsize="changeFontsize">
+      <p>这是插槽的一个demo</p>
+    </child>
   </footer>
 </template>
 
@@ -30,6 +32,8 @@ import Child from './components/child.vue'
 
 // data 属性
 const child = ref(null)
+const fontSize = ref(1)
+
 const msg = ref(0)
 const count = reactive([
   {
@@ -55,6 +59,10 @@ function fun () {
     show: true,
     text: "C"
   })
+}
+
+function changeFontsize () {
+  fontSize.value += 0.1
 }
 
 // 生命周期
